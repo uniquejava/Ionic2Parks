@@ -31,4 +31,17 @@ export class ParkData {
       return data;
     });
   }
+
+  getFilteredParks(queryString: any) {
+    return this.load().then(parks => {
+      let theFilteredParks: any = [];
+      for (let thePark of parks) {
+        if(thePark.name.toLowerCase().indexOf(queryString.toLowerCase()) > -1) {
+          theFilteredParks.push(thePark);
+        }
+      }
+
+      return theFilteredParks;
+    })
+  }
 }
