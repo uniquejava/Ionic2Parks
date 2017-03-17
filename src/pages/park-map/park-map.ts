@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { Platform, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {Platform, NavController, NavParams} from 'ionic-angular';
 import {ParkData} from '../../providers/park-data';
 import {Park} from "../../interfaces/park";
+import {ParkDetailsPage} from '../park-details/park-details';
+import {CustomMapMarker} from './custom-marker';
 import LatLng = google.maps.LatLng;
 import Marker = google.maps.Marker;
 
 /*
-  Generated class for the ParkMap page.
+ Generated class for the ParkMap page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
   selector: 'page-park-map',
   templateUrl: 'park-map.html'
@@ -45,10 +47,17 @@ export class ParkMapPage {
       this.parks = theResult;
       for (let thePark of theResult) {
         let parkPos: LatLng = new LatLng(thePark.lat, thePark.long);
-        let parkMarker: Marker = new Marker();
+        let parkMarker: Marker = new CustomMapMarker(thePark);
         parkMarker.setPosition(parkPos);
         parkMarker.setMap(this.map);
         parkMarker.setIcon(image);
+
+        google.maps.event.addListener(parkMarker, 'click', () => {
+          let selectedMarker: any = parkMarker;
+          this.navCtrl.push(ParkDetailsPage, {
+            parkData: selectedMarker.parkData
+          });
+        })
       }
     });
   }
