@@ -1,7 +1,14 @@
 Tab-based app
 ===
-ionic start Ionic2Parks https://github.com/chrisgriffith/Ionic2Parks --v2
 
+![screen1](screenshots/s1.min.png)
+![screen2](screenshots/s2.min.png)
+![screen3](screenshots/s3.min.png)
+
+Start new project
+```bash
+ionic start Ionic2Parks https://github.com/chrisgriffith/Ionic2Parks --v2
+```
 
 ionic g page parkDetails
 
